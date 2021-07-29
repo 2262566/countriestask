@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+        var request=new XMLHttpRequest();
+        request.open('GET','https://restcountries.eu/rest/v2/all',true);
+        request.send();
+        request.onload=function(){
+             var data=JSON.parse(this.response);
+             //1
+             let casia=data.filter((ele) => ele.region==='Asia');
+             console.log(casia);
+             //2
+let cpopu=data.filter((ele) => ele.population<200000);
+console.log(cpopu);
+//3
+let cusd=data.filter((x) => {
+    for(var i in x.currencies){
+        if(x.currencies[i].code==='usD'){
+            return true;
+        }
+    }
+});
+console.log(cusd);
+
+//4
+let totp=data.reduce((acc,cv) => acc+cv.population , 0);
+console.log(totp);
+
+}
+
+    </script>
+</body>
+</html>
